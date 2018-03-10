@@ -1,6 +1,5 @@
 #!/bin/sh
 export OPENSSL_ENABLE_MD5_VERIFY=1
-export NSS_HASH_ALG_SUPPORT=+MD5
 export LD_PRELOAD="/usr/libexec/openvpn_md5_enabler.so"
 
 exec /usr/libexec/nm-openvpn-service "$@"

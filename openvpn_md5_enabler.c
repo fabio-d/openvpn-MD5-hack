@@ -5,12 +5,13 @@
 
 #include <openssl/ssl.h>
 
-SSL_CTX *SSL_CTX_new(const SSL_METHOD *method)
+SSL *SSL_new(SSL_CTX *ctx)
 {
-	typeof(SSL_CTX_new) *real_SSL_CTX_new = dlsym(RTLD_NEXT, "SSL_CTX_new");
+	typeof(SSL_new) *SSL_new = dlsym(RTLD_NEXT, "SSL_new");
 
-	SSL_CTX *ctx = real_SSL_CTX_new(method);
-	SSL_CTX_set_security_level(ctx, 0);
+	SSL *s = SSL_new(ctx);
+	fprintf(stderr, "SSL_new: Downgrading security level to 0\n");
+	SSL_set_security_level(s, 0);
 
-	return ctx;
+	return s;
 }
