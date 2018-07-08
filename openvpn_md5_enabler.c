@@ -13,5 +13,9 @@ SSL *SSL_new(SSL_CTX *ctx)
 	fprintf(stderr, "SSL_new: Downgrading security level to 0\n");
 	SSL_set_security_level(s, 0);
 
+	fprintf(stderr, "SSL_new: Disabling time checks\n");
+	X509_VERIFY_PARAM *param = SSL_get0_param(s);
+	X509_VERIFY_PARAM_set_flags(param, X509_V_FLAG_NO_CHECK_TIME);
+
 	return s;
 }
